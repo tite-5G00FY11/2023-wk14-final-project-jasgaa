@@ -1,7 +1,4 @@
 const API_URL = 'http://webapi19sa-1.course.tamk.cloud/v1/weather';
-let table1 = document.getElementById('view-1-table');
-let table2 = document.getElementById('view-2-table');
-let table3 = document.getElementById('view-3-table');
 
 const createTableRow = (item) => {
     const parsed = parseWeather(item);
@@ -54,7 +51,9 @@ const parseWeather = (weatherData) => {
         // Only single data type has been requested.
         key = Object.keys(weatherData).find(name => name !== 'device_id' && name !== 'date_time');
         value = weatherData[key];
-    }   
+    } 
+    // Round value to 2 decimals
+    value = parseFloat(parseFloat(value).toFixed(2));
     return {key, date, time, value, dateTime};
 }
 
@@ -73,7 +72,6 @@ const drawChart = async (dataType, view) => {
             chartLabels.push(parseWeather(element).time);
             chartData.push(parseWeather(element).value);
         });
-        console.log(chartData);
         chart = new Chart(chartObj, {
             type: 'bar',
             data: {
@@ -110,26 +108,13 @@ const drawChart = async (dataType, view) => {
 const updatePage = async (input, view) => {
     try {
         const data = await fetchData(input)
+        // Update table
         data.map((item) => {
             let tableRow = '';
-            switch (view) {
-                case 1:
-                    tableRow = createTableRow(item);
-                    table1.append(tableRow);
-                    break;
-                case 2:
-                    tableRow = createTableRow(item);
-                    table2.append(tableRow);
-                    break;
-                case 3:
-                    tableRow = createTableRow(item);
-                    table3.append(tableRow);
-                    break;
-                default:
-                    break;
-            }
-        }
-        );
+            tableRow = createTableRow(item);
+            document.getElementById(`view-${view}-table`).append(tableRow);
+        });
+            
     } catch (error) {
         console.error(error);
     }
