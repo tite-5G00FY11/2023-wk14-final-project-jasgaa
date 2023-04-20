@@ -29,9 +29,23 @@
             </ul>
           </div>
         </div>
-      </nav>     
+      </nav>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="view-2-timespan" data-bs-toggle="dropdown" aria-expanded="false">
+          Timespan
+        </button>
+        <ul class="dropdown-menu" id="view-2-dropdown" aria-labelledby="view-2-timespan">
+          <li class="dropdown-item" value="now">Now</li>
+          <li class="dropdown-item" value="24">24 hours</li>
+          <li class="dropdown-item" value="48">48 hours</li>
+          <li class="dropdown-item" value="72">72 hours</li>
+          <li class="dropdown-item" value="168">1 week</li>
+          <li class="dropdown-item" value="720">1 month</li>
+        </ul>
+      </div>
     
-      <table class="table table-striped">
+      <table class="table table-sm table-striped ">
         <thead>
           <tr>
             <th>Date</th>
@@ -45,7 +59,7 @@
 
     <canvas id="view-2-chart"></canvas>
 
-    <table class="table table-striped">
+    <table class="table table-sm table-striped">
         <thead>
           <tr>
             <th>Weather statistics</th>

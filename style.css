@@ -5,3 +5,7 @@ body {
 .navbar-brand {
     font-weight: bold;
 }
+
+.dropdown {
+    padding: 2%;
+}

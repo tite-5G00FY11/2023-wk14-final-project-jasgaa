@@ -18,12 +18,16 @@ const createTableRow = (item) => {
     return weatherRow;
 }
 
-const fetchData = async (input) => {
+const fetchData = async (input, limit) => {
+    console.log(limit);
     if (Number.isInteger(input)) {
         input = '/limit/' + input;
-    } else {
+    } else if (limit === undefined) {
         input = `/${input}/`;
+    } else {
+        input = `/${input}/${limit}/`
     }
+    console.log(input);
     try {
         const response = await fetch(API_URL + input);
         const data = await response.json();
@@ -106,14 +110,23 @@ const drawChart = async (dataType, view) => {
  * @param {int} view Number of view to update
  */
 const updatePage = async (input, view) => {
+    document.getElementById(`view-${view}-table`).innerText = '';
+    let btnValue;
+    if (view === 1 || view === 2) {
+        const timespanBtn = document.getElementById(`view-${view}-dropdown`);
+        timespanBtn.addEventListener('click', function(event) {
+            btnValue = event.target.value;
+        })
+    }
     try {
-        const data = await fetchData(input)
+        const data = await fetchData(btnValue > 0 ? (input, btnValue) : input)
         // Update table
         data.map((item) => {
             let tableRow = '';
             tableRow = createTableRow(item);
             document.getElementById(`view-${view}-table`).append(tableRow);
         });
+
             
     } catch (error) {
         console.error(error);
