@@ -59,6 +59,7 @@ const updateChart = async (dataType, view, btnValue) => {
         chart.data.datasets[0].data = [];
         chart.data.labels = chartLabels;
         chart.data.datasets[0].data = chartData;
+        chart.options.plugins.title.text = parseWeather(data[0]).key.toUpperCase();
         chart.update();
     } catch (error) {
         console.error(error);

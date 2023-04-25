@@ -1,5 +1,6 @@
 const API_URL = 'http://webapi19sa-1.course.tamk.cloud/v1/weather';
 const charts = {};
+let timespan;
 
 const fetchData = async (input, limit) => {
     let url;
@@ -7,6 +8,10 @@ const fetchData = async (input, limit) => {
     // Int input (from view 1)
     if (Number.isInteger(input) && !limit) {
         url = `${API_URL}/limit/${input}`;
+    }
+    // Possible names for view 1
+    else if (input === 'names') {
+        url = `${API_URL}/names/`;
     }
     // 20 of selected input (type) (v 2&3)
     else if (typeof input === "string" && !limit) {
@@ -57,24 +62,32 @@ const parseWeather = (weatherData) => {
  * @param {*} input Either count for latest readings or name of entry point eg. light, temperature etc.
  * @param {int} view Number of view to update
  */
-const updatePage = async (input, view) => {
+const updatePage = async (input, view, amount, update) => {
     const table = document.getElementById(`view-${view}-table`);
-    let btnValue;
-    if (view === 2 || view === 3) {
-        const timespanBtn = document.getElementById(`view-${view}-dropdown`);
-        await updateTable(input, table);
-        charts[view] = await drawChart(input, view);
-        await updateStatistics(input, view);
 
-        // Update according to selected timespan
-        timespanBtn.addEventListener('click', function(event) {
-            btnValue = event.target.value;
-            updateTable(input, table, btnValue);
-            updateChart(input, view, btnValue);
-            updateStatistics(input, view, btnValue);
-        });
-    // View 1
+    const timespanBtn = document.getElementById(`view-${view}-dropdown`);
+    await updateTable(input, table, amount != null ? amount : null);
+    if (!update) {
+        charts[view] = await drawChart(input, view);
     } else {
-        updateTable(input, table);
+        updateChart(input, view, timespan);
     }
+    if (view != 1) {
+        await updateStatistics(input, view);
+    }
+
+    // Update according to selected timespan
+    timespanBtn.addEventListener('click', function(event) {
+        document.getElementById(`view-${view}-timespan`).textContent = event.target.innerText + ' ';
+        timespan = event.target.value;
+        if (view === 1) {
+            input = selectedData;
+        }
+        updateTable(input, table, timespan);
+        updateChart(input, view, timespan);
+        if (view != 1) {
+            updateStatistics(input, view, timespan);
+        }
+    });
+
 };

@@ -16,9 +16,9 @@ const createTableRow = (item) => {
     return weatherRow;
 };
 
-const updateTable = async (input, table, btnValue) => {
+const updateTable = async (input, table, limit) => {
     try {
-        const data = await fetchData(input, btnValue > 0 ? btnValue : null);
+        const data = await fetchData(input, limit > 0 ? limit : null);
         // Clear table
         if (data.length > 0) {
             table.innerHTML = '';
