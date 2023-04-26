@@ -31,20 +31,6 @@
         </div>
       </nav>
       
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="view-3-timespan" data-bs-toggle="dropdown" aria-expanded="false">
-          Now
-        </button>
-        <ul class="dropdown-menu" id="view-3-dropdown" aria-labelledby="view-3-timespan">
-          <li class="dropdown-item" value="now">Now</li>
-          <li class="dropdown-item" value="24">24 hours</li>
-          <li class="dropdown-item" value="48">48 hours</li>
-          <li class="dropdown-item" value="72">72 hours</li>
-          <li class="dropdown-item" value="168">1 week</li>
-          <li class="dropdown-item" value="720">1 month</li>
-        </ul>
-      </div>
-
       <div class="container">
         <div class="table-container">
           <table class="table table-sm table-striped">
@@ -63,6 +49,19 @@
             <canvas id="view-3-chart"></canvas>
           </div>
             <div class="table-container">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="view-3-timespan" data-bs-toggle="dropdown" aria-expanded="false">
+                  Now
+                </button>
+                <ul class="dropdown-menu" id="view-3-dropdown" aria-labelledby="view-3-timespan">
+                  <li class="dropdown-item" value="now">Now</li>
+                  <li class="dropdown-item" value="24">24 hours</li>
+                  <li class="dropdown-item" value="48">48 hours</li>
+                  <li class="dropdown-item" value="72">72 hours</li>
+                  <li class="dropdown-item" value="168">1 week</li>
+                  <li class="dropdown-item" value="720">1 month</li>
+                </ul>
+              </div>
               <table class="table table-sm table-striped">
                 <thead>
                   <tr>
