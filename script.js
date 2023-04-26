@@ -1,4 +1,4 @@
-const API_URL = 'http://webapi19sa-1.course.tamk.cloud/v1/weather';
+const API_URL = 'https://webapi19sa-1.course.tamk.cloud/v1/weather';
 const charts = {};
 let timespan;
 
