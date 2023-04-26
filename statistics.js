@@ -42,15 +42,21 @@ const calculateStatistics = (data) => {
  * @param {string} dataType eg. light, temperature
  * @param {int} view Number of view to update
  */
-const updateStatistics = async (dataType, view) => {
+const updateStatistics = async (dataType, view, btnValue) => {
     try {
-        const data = await fetchData(dataType)
+        const data = await fetchData(dataType,  btnValue > 0 ? btnValue : null)
         const values = [];
+        const statistics = document.getElementById(`view-${view}-statistics`);
+        // Clear statics
+        if (data.length > 0) {
+            statistics.innerHTML = '';
+        }
+        // Update statics
         data.map((item) => {
             values.push(parseFloat(parseWeather(item).value));
         });
         const stats = calculateStatistics(values)
-        let statistics = document.getElementById(`view-${view}-statistics`);
+        
         for (const key in stats) {
             let statsRow = document.createElement('tr');
             let statsKey = document.createElement('td');
