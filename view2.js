@@ -1,0 +1,2 @@
+
+updatePage('temperature', 2);

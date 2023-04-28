@@ -1,0 +1,2 @@
+
+updatePage('light', 3);
